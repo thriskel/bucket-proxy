@@ -2,7 +2,7 @@ import asyncio
 from typing import Annotated, Any
 
 from botocore.exceptions import ClientError
-from fastapi import File, HTTPException
+from fastapi import File, HTTPException, status
 
 from aws.client import s3
 
@@ -40,7 +40,7 @@ async def upload_file_to_bucket(
                 detail=e.message["response"]["Error"]["Message"],
             )
         else:
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     created_object = await asyncio.to_thread(
         s3.get_object, Bucket=bucket_name, Key=object_name
