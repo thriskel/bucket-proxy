@@ -27,7 +27,7 @@ async def upload_file(
                 detail=e.message["response"]["Error"]["Message"],
             )
         else:
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     response = {
         "message": f"{object_name} was successfully created in the {bucket_name} bucket!"
@@ -48,4 +48,4 @@ async def download_file(s3_object: dict[Any] = Depends(valid_object)):
                 detail=e.message["response"]["Error"]["Message"],
             )
         else:
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
