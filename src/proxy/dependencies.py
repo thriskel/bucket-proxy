@@ -47,7 +47,7 @@ async def valid_bucket_name(bucket_name: str) -> str:
                 detail=e.message["response"]["Error"]["Message"],
             )
         else:
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     return bucket_name
 
@@ -109,6 +109,6 @@ async def valid_object(
                 detail=e.message["response"]["Error"]["Message"],
             )
         else:
-            raise HTTPException(status_code=500, detail=str(e))
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
 
     return s3_object
